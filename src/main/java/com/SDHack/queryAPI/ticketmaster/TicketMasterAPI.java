@@ -14,8 +14,10 @@ public class TicketMasterAPI {
     private static final String URL = "https://app.ticketmaster.com/discovery/v2/events.json";
     private static final String DEFAULT_KEYWORD = ""; // no restriction
     private static final String API_KEY = "G6LdqVgSG8oO0qXQASGOfXnG6SdBrjOV";
+    private static final String startTime = "2018-11-23T01:45:00Z";
+    private static final String endTime = "2018-11-24T01:45:00Z";
 
-    List<EventResult> search(double lat, double lon, String keyword) {
+    public static List<EventResult> search(double lat, double lon, String keyword) {
         if(keyword == null) {
             keyword = DEFAULT_KEYWORD;
         }
@@ -28,8 +30,8 @@ public class TicketMasterAPI {
 
         String geoHash = Utility.encodeGeohash(lat,lon, 8);
 
-        String query = String.format("apikey=%s&geoPoint=%s&keyword=%s&radius=%s",
-                API_KEY,geoHash,keyword,50);
+        String query = String.format("apikey=%s&geoPoint=%s&keyword=%s&radius=%s&startDateTime=%s&endDateTime=%s",
+                API_KEY,geoHash,keyword,50,startTime,endTime);
 
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(URL + "?"+query).openConnection();
@@ -57,17 +59,40 @@ public class TicketMasterAPI {
             JSONArray events = embedded.getJSONArray("events");
             List<EventResult> eventResultList = new ArrayList<>();
             for(int i = 0 ; i < events.length() ; i++) {
-                JSONObject event = events.getJSONObject(i);
                 EventResult eventResult = new EventResult();
+
+
+                //get the event object
+                JSONObject event = events.getJSONObject(i);
+
+                //get the name of the event
+                String name = event.getString("name");
+                eventResult.setName(name);
+
+                //set the address
                 String address = Utility.getAddress(event);
                 eventResult.setLocation(address);
+
+                //set the image URL
                 String imageUrl = Utility.getImageUrl(event);
                 eventResult.setPictureUri(imageUrl);
+
+                //set the info URL
                 String infoPageUri = Utility.getInfoUrl(event);
                 eventResult.setInfoPageUri(infoPageUri);
-                //eventResult.setCategory();
-            }
 
+                //set the startTime
+                try {
+                    String dateTime = event.getJSONObject("dates").getJSONObject("start").getString("dateTime");
+                    eventResult.setStartTime(dateTime);
+                } catch (Exception e) {
+                    continue;
+                }
+
+                //eventResult.setCategory();
+                eventResultList.add(eventResult);
+            }
+            return eventResultList;
         }catch (Exception e) {
             e.printStackTrace();
         }

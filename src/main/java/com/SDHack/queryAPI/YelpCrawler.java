@@ -16,13 +16,14 @@ import java.net.HttpURLConnection;
 
 public class YelpCrawler {
 
-    private String url = "https://api.yelp.com/v3/businesses/search";
-    private String token = "kcjt1y5c411tEPU_djKWyveyShfRoWdgbMMJrqe-C0QZmOVe4VwCbUvoX_oqpbJxz59PL_AfoGisrzaSYABenycK2HEAgWeajzyDsg7Kh_Ttrvqg9OI7GvBcVhTCW3Yx";
+
 
 
     /*function that starts to search 50 events*/
-    public List<EventResult> search(int startTime, int endTime)
+    public static List<EventResult> search(int startTime, int endTime)
     {
+        String url = "https://api.yelp.com/v3/businesses/search";
+        String token = "kcjt1y5c411tEPU_djKWyveyShfRoWdgbMMJrqe-C0QZmOVe4VwCbUvoX_oqpbJxz59PL_AfoGisrzaSYABenycK2HEAgWeajzyDsg7Kh_Ttrvqg9OI7GvBcVhTCW3Yx";
         List<EventResult> result = new ArrayList();
         try {
 
