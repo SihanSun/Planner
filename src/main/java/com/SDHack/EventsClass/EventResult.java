@@ -1,6 +1,6 @@
 package com.SDHack.EventsClass;
 
-public class Events {
+public class EventResult {
 
     private int category;
 
