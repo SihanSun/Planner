@@ -18,7 +18,7 @@ public class YelpCrawler {
 
     private String url = "https://api.yelp.com/v3/businesses/search";
     private String token = "kcjt1y5c411tEPU_djKWyveyShfRoWdgbMMJrqe-C0QZmOVe4VwCbUvoX_oqpbJxz59PL_AfoGisrzaSYABenycK2HEAgWeajzyDsg7Kh_Ttrvqg9OI7GvBcVhTCW3Yx";
-    
+
 
     /*function that starts to search 50 events*/
     public List<EventResult> search(int startTime, int endTime)
@@ -37,9 +37,6 @@ public class YelpCrawler {
             //connection.setRequestProperty("Client ID",clientID);
             connection.setConnectTimeout( 100000 );
             connection.setReadTimeout( 100000 );
-            connection.setRequestProperty("sort_on",sort_on);
-            connection.setRequestProperty("start_date",Integer.toString(startTime));
-            connection.setRequestProperty("end_date",Integer.toString(endTime));
 
 
 
@@ -50,6 +47,7 @@ public class YelpCrawler {
             if(responseCode != 200) {
                 //
                 System.out.println("We failed to get the information ");
+                return result;
             }
 
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -86,8 +84,8 @@ public class YelpCrawler {
                     eventResult.setPictureUri(event.getString("image_url"));
                 if(event.has("url"))
                     eventResult.setInfoPageUri(event.getString("url"));
-
-
+                
+                result.add(eventResult);
 
 
             }
