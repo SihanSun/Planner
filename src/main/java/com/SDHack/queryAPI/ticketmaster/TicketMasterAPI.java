@@ -6,7 +6,11 @@ import java.net.URL;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -17,10 +21,32 @@ public class TicketMasterAPI {
     private static final String startTime = "2018-11-23T01:45:00Z";
     private static final String endTime = "2018-11-24T01:45:00Z";
 
-    public static List<EventResult> search(double lat, double lon, String keyword) {
+    public static List<EventResult> search(double lat, double lon, String startTime, String keyword) {
         if(keyword == null) {
             keyword = DEFAULT_KEYWORD;
         }
+
+        long timeStamp = Long.parseLong(startTime);
+        Date date = new Date(timeStamp);
+
+        String pattern1 = "yyyy-mm-dd";
+        String pattern2 = "hh:mm:ss";
+        SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(pattern1);
+        SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(pattern2);
+
+        String formatDateBegin = simpleDateFormat1.format(date);
+        formatDateBegin += "T";
+        formatDateBegin += simpleDateFormat2.format(date);
+        formatDateBegin += "Z";
+
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, 1);
+        Date endDate = c.getTime();
+        String formatDateEnd = simpleDateFormat1.format(endDate);
+        formatDateEnd += "T";
+        formatDateEnd += simpleDateFormat2.format(endDate);
+        formatDateEnd += "Z";
 
         try {
             keyword = java.net.URLEncoder.encode(keyword,"UTF-8");
@@ -31,7 +57,7 @@ public class TicketMasterAPI {
         String geoHash = Utility.encodeGeohash(lat,lon, 8);
 
         String query = String.format("apikey=%s&geoPoint=%s&keyword=%s&radius=%s&startDateTime=%s&endDateTime=%s",
-                API_KEY,geoHash,keyword,50,startTime,endTime);
+                API_KEY,geoHash,keyword,50,formatDateBegin, formatDateEnd);
 
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(URL + "?"+query).openConnection();

@@ -17,17 +17,15 @@ public class SearchController {
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/search")
     List<EventResult> getIdByValue(@RequestParam String type
-            , @RequestParam String startTime
-            , @RequestParam String endTime ) {
+            , @RequestParam String startTime) {
         System.out.println("type is " + type);
         System.out.println("startTime is " + startTime);
-        System.out.println("endTIme is " + endTime);
         if(type.equals("0")) {
-            return TicketMasterAPI.search(32.8858947,-117.2394694, null);
+            return TicketMasterAPI.search(32.8858947,-117.2394694, startTime,null);
         } else if(type.equals("1")) {
             return YelpCrawler.search(Integer.parseInt(startTime),0);
         } else {
-            return TicketMasterAPI.search(32.8858947,-117.2394694, null);
+            return TicketMasterAPI.search(32.8858947,-117.2394694, startTime, null);
         }
     }
 
