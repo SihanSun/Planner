@@ -18,6 +18,8 @@ public class EventResult {
 
     private String infoPageUri;
 
+    private String distance;
+
     public int getCategory() { return category; }
 
     public void setCategory(int category) { this.category = category; }
@@ -49,4 +51,8 @@ public class EventResult {
     public String getInfoPageUri() { return infoPageUri; }
 
     public void setInfoPageUri(String infoPageUri) { this.infoPageUri = infoPageUri; }
+
+    public String getDistance() { return distance; }
+
+    public void setDistance(String distance) { this.distance = distance; }
 }
