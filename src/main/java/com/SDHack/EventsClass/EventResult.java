@@ -6,19 +6,19 @@ public class EventResult {
 
     private String name;
 
-    private String cost;
+    private String cost = "N/A";
 
-    private String location;
+    private String location = "N/A";
 
-    private String startTime;
+    private String startTime = "N/A";
 
-    private String endTime;
+    private String endTime = "N/A";
 
-    private String pictureUri;
+    private String pictureUri ;
 
     private String infoPageUri;
 
-    private String distance;
+    private String distance = "N/A";
 
     public int getCategory() { return category; }
 

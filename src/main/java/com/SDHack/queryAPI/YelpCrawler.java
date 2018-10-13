@@ -26,7 +26,8 @@ public class YelpCrawler {
         List<EventResult> result = new ArrayList();
         try {
 
-            URL requestUrl = new URL(url+"?latitude=32.880058&longitude=-117.234016&limit=50");
+            URL requestUrl = new URL(url+"?latitude=32.880058&longitude=-117.234016&limit=50&open_at="+startTime);
+            System.out.println(requestUrl);
             HttpURLConnection connection = (HttpURLConnection)(requestUrl.openConnection());
             connection.setRequestProperty("Authorization","Bearer "+token);
             connection.setRequestMethod("GET");
@@ -45,7 +46,6 @@ public class YelpCrawler {
             System.out.println("\nSending 'GET' request to URL: " + url);
             System.out.println("Response code: " + responseCode);
             if(responseCode != 200) {
-                //
                 System.out.println("We failed to get the information ");
                 return result;
             }
@@ -59,7 +59,6 @@ public class YelpCrawler {
             in.close();
 
             JSONObject obj = new JSONObject(response.toString());
-            //System.out.println(obj.toString());
             if(obj.length()==0) { //key needs to be exact match
                 System.err.println("No information displayed");
                 return new ArrayList<>();
@@ -67,9 +66,7 @@ public class YelpCrawler {
             JSONArray events = obj.getJSONArray("businesses");
             for(int i = 0 ; i < events.length() ; i++) {
                 JSONObject event = events.getJSONObject(i);
-                //System.out.println(event.toString());
                 EventResult eventResult = new EventResult();
-                //Set the details of single events
                 eventResult.setCategory(1);
                 if(event.has("name"))
                     eventResult.setName(event.getString("name"));
@@ -84,7 +81,10 @@ public class YelpCrawler {
                     eventResult.setPictureUri(event.getString("image_url"));
                 if(event.has("url"))
                     eventResult.setInfoPageUri(event.getString("url"));
-                
+                if(event.has("distance"))
+                    eventResult.setDistance(event.getString("distance"));
+
+                System.out.println(eventResult.getName());
                 result.add(eventResult);
 
 
