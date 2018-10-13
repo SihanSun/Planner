@@ -2,13 +2,10 @@ package com.SDHack.queryAPI;
 
 import com.SDHack.EventsClass.EventResult;
 
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.SDHack.queryAPI.ticketmaster.Utility;
 import org.json.*;
-import org.springframework.stereotype.Component;
 
 
 import java.net.URL;
@@ -21,12 +18,7 @@ public class YelpCrawler {
 
     private String url = "https://api.yelp.com/v3/businesses/search";
     private String token = "kcjt1y5c411tEPU_djKWyveyShfRoWdgbMMJrqe-C0QZmOVe4VwCbUvoX_oqpbJxz59PL_AfoGisrzaSYABenycK2HEAgWeajzyDsg7Kh_Ttrvqg9OI7GvBcVhTCW3Yx";
-    private int totalNumber = 50;
-    private String sort_on = "popularity";
-    private String latitude = "32.8858947";
-    private String longtitude = "-117.2394694";
-
-
+    
 
     /*function that starts to search 50 events*/
     public List<EventResult> search(int startTime, int endTime)
