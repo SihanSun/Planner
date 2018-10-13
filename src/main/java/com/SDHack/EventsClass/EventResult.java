@@ -16,6 +16,8 @@ public class EventResult {
 
     private String pictureUri;
 
+    private String infoPageUri;
+
     public int getCategory() { return category; }
 
     public void setCategory(int category) { this.category = category; }
@@ -43,4 +45,8 @@ public class EventResult {
     public String getPictureUri() { return pictureUri; }
 
     public void setPictureUri(String pictureUri) { this.pictureUri = pictureUri; }
+
+    public String getInfoPageUri() { return infoPageUri; }
+
+    public void setInfoPageUri(String infoPageUri) { this.infoPageUri = infoPageUri; }
 }
