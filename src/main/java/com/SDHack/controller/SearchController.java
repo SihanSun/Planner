@@ -43,12 +43,14 @@ public class SearchController {
         } else {
             //Put more types in the list
             List<String> types = new ArrayList();
-            types.add("beauty");
-            types.add("utensils");
+            types.add("eyeliner");
+            types.add("glass");
             types.add("shoes");
-            types.add("jewelry");
+            types.add("adidas");
+            types.add("nike");
+            types.add("necklace");
             types.add("perfume");
-            types.add("handbags");
+            types.add("handbag");
             types.add("bedding");
 
             String searchKeyword = "clothes";
