@@ -19,19 +19,22 @@ public class FavoriteController {
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/favorite", method = RequestMethod.POST)
     String addFavorite(@RequestParam String userId
-            , @RequestBody EventResult eventResult) throws Exception {
+            , @RequestParam int id) throws Exception {
         Optional<Favorite> favoriteOptional = favoriteRepository.findById(userId);
         System.out.println("received");
-        System.out.println("name is " + eventResult.getName());
+        System.out.println("id is " + id);
         if(favoriteOptional.isPresent()) {
             System.out.println("update");
             Favorite favorite = favoriteOptional.get();
-            favorite.addFavorite(eventResult);
+            List<EventResult> history = favorite.getHistory();
+            favorite.addFavorite(history.get(id));
             favoriteRepository.save(favorite);
         } else {
             System.out.println("insert");
             Favorite favorite = new Favorite(userId);
-            favorite.addFavorite(eventResult);
+            List<EventResult> history = favorite.getHistory();
+            favorite.addFavorite(history.get(id));
+            System.out.println("inserting" + history.get(id).getName());
             favoriteRepository.save(favorite);
         }
         return "success";

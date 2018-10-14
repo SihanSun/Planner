@@ -14,12 +14,22 @@ public class Favorite {
 
     private List<EventResult>  favorites = new ArrayList<>();
 
+    private List<EventResult> history;
+
     public Favorite(String userName) {
         this.userName = userName;
     }
 
     public void addFavorite(EventResult eventResult) {
         favorites.add(eventResult);
+    }
+
+    public void setHistory(List<EventResult> history) {
+        this.history = history;
+    }
+
+    public List<EventResult> getHistory() {
+        return this.history;
     }
 
     public List<EventResult> getFavorites() {

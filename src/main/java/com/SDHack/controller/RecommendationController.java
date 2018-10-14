@@ -61,7 +61,7 @@ public class RecommendationController {
         long timeStamp = ts.getTime();
         timeStamp /= 1000;
         if(countOf0 != 0) {
-            List<EventResult> eventResults = TicketMasterAPI.search(Long.toString(timeStamp), null);
+            List<EventResult> eventResults = TicketMasterAPI.search(null);
             for (int i = 0; i < countOf0; i++) {
                 if(i >= eventResultList.size()) {
                     break;
