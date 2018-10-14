@@ -1,5 +1,6 @@
 package com.SDHack.controller;
 
+import com.SDHack.EventsClass.CategoryEvents;
 import com.SDHack.EventsClass.EventResult;
 import com.SDHack.SpringDataRepository.FavoritesRepository.Favorite;
 import com.SDHack.SpringDataRepository.FavoritesRepository.FavoriteRepository;
@@ -42,7 +43,7 @@ public class FavoriteController {
 
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/favorite", method = RequestMethod.GET)
-    List<EventResult> getIdByValue(@RequestParam String userId) throws Exception {
+    CategoryEvents getIdByValue(@RequestParam String userId) throws Exception {
 //        Favorite favoriteTest = new Favorite("testName");
 //        EventResult eventResultTest = new EventResult();
 //        eventResultTest.setName("testResult");
@@ -51,7 +52,20 @@ public class FavoriteController {
         Optional<Favorite> favoriteOptional = favoriteRepository.findById(userId);
         if(favoriteOptional.isPresent()) {
             Favorite favorite = favoriteOptional.get();
-            return favorite.getFavorites();
+            CategoryEvents categoryEvents = new CategoryEvents();
+            for(EventResult event : favorite.getFavorites()) {
+                int category = event.getCategory();
+                if(category == 0) {
+                    categoryEvents.getTicketMasterList().add(event);
+                }
+                if(category == 1) {
+                    categoryEvents.getYelpList().add(event);
+                }
+                if(category == 2) {
+                    categoryEvents.getMacyList().add(event);
+                }
+            }
+            return categoryEvents;
         } else {
             throw new Exception("user not found");
         }
