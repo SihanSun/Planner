@@ -20,7 +20,7 @@ public class SearchController {
     @Autowired
     FavoriteRepository favoriteRepository;
 
-    @CrossOrigin(origins = "http://localhost:8081")
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/search")
     List<EventResult> getIdByValue(@RequestParam String type
             , @RequestParam String userId ) throws Exception {

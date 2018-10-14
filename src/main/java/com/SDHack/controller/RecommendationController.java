@@ -23,7 +23,7 @@ public class RecommendationController {
     @Autowired
     FavoriteRepository favoriteRepository;
 
-    @CrossOrigin(origins = "http://localhost:8081")
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/recommendation")
     List<EventResult> getIdByValue(@RequestParam String userId) throws Exception {
         Optional<Favorite> favoriteOptional = favoriteRepository.findById(userId);
