@@ -28,7 +28,7 @@ public class SearchController {
         System.out.println("type is " + type);
 
         String startTime = "1539485667";
-        //guess type
+
         type = type.replaceAll("%20", " ");
         String typecopy = type;
         type = PortalNLP.classify(type);
@@ -37,7 +37,19 @@ public class SearchController {
         System.out.println("type is " + type);
         List<EventResult> ans;
         if(type.equals("0")) {
-            ans = TicketMasterAPI.search(null);
+            List<String> keyWordList = new ArrayList<>();
+            keyWordList.add("concert");
+            keyWordList.add("movie");
+            keyWordList.add("football");
+            keyWordList.add("opera");
+            String keyWord = "";
+            for(int i = 0 ; i < keyWordList.size() ; i++) {
+                if(typecopy.contains(keyWordList.get(i))) {
+                    keyWord = keyWordList.get(i);
+                    break;
+                }
+            }
+            ans = TicketMasterAPI.search(keyWord);
         } else if(type.equals("1")) {
             ans = YelpCrawler.search(Integer.parseInt(startTime),0);
         } else {
