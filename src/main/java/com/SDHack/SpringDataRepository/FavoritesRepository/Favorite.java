@@ -4,6 +4,7 @@ import com.SDHack.EventsClass.EventResult;
 import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 
@@ -15,6 +16,8 @@ public class Favorite {
     private List<EventResult>  favorites = new ArrayList<>();
 
     private List<EventResult> history;
+
+    private HashSet<String> idSet = new HashSet<>();
 
     public Favorite(String userName) {
         this.userName = userName;
@@ -35,6 +38,11 @@ public class Favorite {
     public List<EventResult> getFavorites() {
         return favorites;
     }
+
+    public HashSet<String> getIdSet() { return idSet; }
+
+    public void setIdSet(HashSet<String> idSet) { this.idSet = idSet; }
+
     @Override
     public String toString() {
         String ans = userName + "\n";

@@ -50,6 +50,7 @@ public class SearchController {
         Optional<Favorite> favoriteOptional = favoriteRepository.findById(userId);
         if(favoriteOptional.isPresent()) {
             Favorite favorite = favoriteOptional.get();
+            favorite.getIdSet().clear();
             favorite.setHistory(ans);
             favoriteRepository.save(favorite);
         } else {

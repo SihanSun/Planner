@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 @RestController
@@ -28,9 +29,16 @@ public class FavoriteController {
         if(favoriteOptional.isPresent()) {
             System.out.println("update");
             Favorite favorite = favoriteOptional.get();
-            List<EventResult> history = favorite.getHistory();
-            favorite.addFavorite(history.get(id));
-            favoriteRepository.save(favorite);
+            String idString = Integer.toString(id);
+            HashSet<String> set = favoriteOptional.get().getIdSet();
+            if(set.contains(idString)) {
+                return "already in favorite";
+            } else {
+                List<EventResult> history = favorite.getHistory();
+                set.add(idString);
+                favorite.addFavorite(history.get(id));
+                favoriteRepository.save(favorite);
+            }
         } else {
             System.out.println("insert");
             Favorite favorite = new Favorite(userId);
