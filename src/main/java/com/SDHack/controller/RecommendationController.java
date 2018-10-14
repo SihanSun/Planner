@@ -29,16 +29,18 @@ public class RecommendationController {
         Optional<Favorite> favoriteOptional = favoriteRepository.findById(userId);
         List<EventResult> eventResultList = favoriteOptional.map(u->u.getFavorites())
                 .orElseThrow(() -> new Exception("no user found"));
+        System.out.println("event list size is " + eventResultList.size());
         int countOf0 = 0;
         int countOf1 = 0;
         int countOf2 = 0;
         for(int i = 0 ; i < eventResultList.size() ; i++) {
             int category = eventResultList.get(i).getCategory();
-            if(category == 0) {
+            System.out.println("category is " + category);
+            if(category == 0 ) {
                 countOf0++;
             } else if(category == 1) {
                 countOf1++;
-            } else {
+            } else if(category == 2){
                 countOf2++;
             }
         }
@@ -55,6 +57,9 @@ public class RecommendationController {
             countOf2 /= 2;
         }
 
+        System.out.println("countOf0 is " + countOf0);
+        System.out.println("countOf1 is " + countOf0);
+        System.out.println("countOf2 is " + countOf0);
         List<EventResult> ans = new ArrayList<>();
 
         Timestamp ts=new Timestamp(System.currentTimeMillis());
@@ -63,7 +68,7 @@ public class RecommendationController {
         if(countOf0 != 0) {
             List<EventResult> eventResults = TicketMasterAPI.search(null);
             for (int i = 0; i < countOf0; i++) {
-                if(i >= eventResultList.size()) {
+                if(i >= eventResults.size()) {
                     break;
                 }
                 ans.add(eventResults.get(i));
@@ -72,7 +77,7 @@ public class RecommendationController {
         if(countOf1 != 0) {
             List<EventResult> eventResults = YelpCrawler.search((int)timeStamp,0);
             for(int i = 0 ; i < countOf0 ; i++) {
-                if(i >= eventResultList.size()) {
+                if(i >= eventResults.size()) {
                     break;
                 }
                 ans.add(eventResults.get(i));
@@ -80,8 +85,8 @@ public class RecommendationController {
         }
         if(countOf2 != 0) {
             List<EventResult> eventResults = MacysAPI.search("");
-            for(int i = 0 ; i < countOf0 ; i++) {
-                if(i >= eventResultList.size()) {
+            for(int i = 0 ; i < countOf2 ; i++) {
+                if(i >= eventResults.size()) {
                     break;
                 }
                 ans.add(eventResults.get(i));
