@@ -1,12 +1,9 @@
 package com.SDHack.SpringDataRepository.FavoritesRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface FavoriteRepository extends MongoRepository<Favorite, String> {
-
-    Favorite findByFirstName(String firstName);
-    List<Favorite> findByLastName(String lastName);
-
+    Optional<Favorite> findById(String userId);
 }

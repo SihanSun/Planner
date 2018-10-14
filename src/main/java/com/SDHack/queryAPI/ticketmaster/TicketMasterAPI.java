@@ -57,7 +57,7 @@ public class TicketMasterAPI {
         String geoHash = Utility.encodeGeohash(lat,lon, 8);
 
         String query = String.format("apikey=%s&geoPoint=%s&keyword=%s&radius=%s&startDateTime=%s&endDateTime=%s",
-                API_KEY,geoHash,keyword,50,formatDateBegin, formatDateEnd);
+                API_KEY,geoHash,keyword,50,"2018-11-23T01:45:00Z", "2018-11-24T01:45:00Z");
 
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(URL + "?"+query).openConnection();
