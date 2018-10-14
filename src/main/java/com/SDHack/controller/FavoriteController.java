@@ -18,7 +18,7 @@ public class FavoriteController {
     @Autowired
     FavoriteRepository favoriteRepository;
 
-    @CrossOrigin(origins = "http://localhost:8081")
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/favorite", method = RequestMethod.POST)
     String addFavorite(@RequestParam String userId
             , @RequestParam int id) throws Exception {
@@ -42,7 +42,7 @@ public class FavoriteController {
         return "success";
     }
 
-    @CrossOrigin(origins = "http://localhost:8081")
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/favorite", method = RequestMethod.GET)
     List<EventResult> getIdByValue(@RequestParam String userId,
                                    @RequestParam String type) throws Exception {
