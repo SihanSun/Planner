@@ -57,6 +57,7 @@ public class SearchController {
             for(int i = 0; i < types.size(); i ++) {
                 if (type.contains(types.get(i))) {
                     searchKeyword = types.get(i);
+                    break;
                 }
             }
 
