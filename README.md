@@ -1,0 +1,2 @@
+# SDPlanner
+Powered by the PortNPL AI assistant, SDPlanner understands your commands and does all the searching for you with one simple sentence. On the backend, by using the API of Macy's, Yelp, and TicketMaster, this app provides the users with a full-fledged event-searching experience with one simple touch. Want some inspirations? Based on your searching history, our intelligent algorithm will help you find things you may like. Just look through all the items and set the favorite with one click, SDPlanner can help you connect to the outside world.
