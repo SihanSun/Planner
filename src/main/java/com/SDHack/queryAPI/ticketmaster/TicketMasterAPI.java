@@ -22,18 +22,16 @@ public class TicketMasterAPI {
     private static final String endTime = "2018-11-24T01:45:00Z";
     private static final double lat = 32.8858947;
     private static final double lon = -117.2394694;
+    private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
 
     public static List<EventResult> search(String startTime, String keyword) {
         if(keyword == null) {
             keyword = DEFAULT_KEYWORD;
         }
 
-        long timeStamp = Long.parseLong(startTime);
-        timeStamp *= 1000;
-        Date date = new Date(timeStamp);
-
-        String pattern1 = "yyyy-mm-dd";
-        String pattern2 = "hh:mm:ss";
+        Date date=new java.util.Date(System.currentTimeMillis());
+        String pattern1 = "yyyy-MM-dd";
+        String pattern2 = "HH:mm:ss";
         SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(pattern1);
         SimpleDateFormat simpleDateFormat2 = new SimpleDateFormat(pattern2);
 
@@ -42,10 +40,8 @@ public class TicketMasterAPI {
         formatDateBegin += simpleDateFormat2.format(date);
         formatDateBegin += "Z";
 
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DATE, 1);
-        Date endDate = c.getTime();
+
+        Date endDate = new Date(date.getTime() + (7 * DAY_IN_MS));
         String formatDateEnd = simpleDateFormat1.format(endDate);
         formatDateEnd += "T";
         formatDateEnd += simpleDateFormat2.format(endDate);
