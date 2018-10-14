@@ -1,7 +1,10 @@
 package com.SDHack.queryAPI;
 
+import antlr.StringUtils;
 import com.SDHack.EventsClass.EventResult;
 import org.json.*;
+import sun.jvm.hotspot.utilities.CStringUtilities;
+
 import java.net.URL;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -12,12 +15,12 @@ import java.util.List;
 
 public class MacysAPI {
     private static final String URL = "https://api.macys.com/v4/catalog/search";
-    private static final String DEFAULT_KEYWORD = ""; // no restriction
+    private static final String DEFAULT_KEYWORD = "clothes"; // no restriction
     private static final String API_KEY = "h4ckathon";
     private static final int NUM_ELE = 24;
 
-    public static List<EventResult> search(double lat, double lon, String keyword) {
-        if(keyword == null) {
+    public static List<EventResult> search(String keyword) {
+        if(keyword == null || keyword.equals("")) {
             keyword = DEFAULT_KEYWORD;
         }
 

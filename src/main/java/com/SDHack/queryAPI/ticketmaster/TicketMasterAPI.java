@@ -20,13 +20,16 @@ public class TicketMasterAPI {
     private static final String API_KEY = "G6LdqVgSG8oO0qXQASGOfXnG6SdBrjOV";
     private static final String startTime = "2018-11-23T01:45:00Z";
     private static final String endTime = "2018-11-24T01:45:00Z";
+    private static final double lat = 32.8858947;
+    private static final double lon = -117.2394694;
 
-    public static List<EventResult> search(double lat, double lon, String startTime, String keyword) {
+    public static List<EventResult> search(String startTime, String keyword) {
         if(keyword == null) {
             keyword = DEFAULT_KEYWORD;
         }
 
         long timeStamp = Long.parseLong(startTime);
+        timeStamp *= 1000;
         Date date = new Date(timeStamp);
 
         String pattern1 = "yyyy-mm-dd";
@@ -57,7 +60,7 @@ public class TicketMasterAPI {
         String geoHash = Utility.encodeGeohash(lat,lon, 8);
 
         String query = String.format("apikey=%s&geoPoint=%s&keyword=%s&radius=%s&startDateTime=%s&endDateTime=%s",
-                API_KEY,geoHash,keyword,50,"2018-11-23T01:45:00Z", "2018-11-24T01:45:00Z");
+                API_KEY,geoHash,keyword,50, formatDateBegin, formatDateEnd);
 
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(URL + "?"+query).openConnection();

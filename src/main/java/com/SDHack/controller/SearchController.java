@@ -1,6 +1,7 @@
 package com.SDHack.controller;
 
 import com.SDHack.EventsClass.EventResult;
+import com.SDHack.queryAPI.MacysAPI;
 import com.SDHack.queryAPI.YelpCrawler;
 import com.SDHack.queryAPI.ticketmaster.TicketMasterAPI;
 import org.springframework.web.bind.annotation.*;
@@ -21,11 +22,11 @@ public class SearchController {
         System.out.println("type is " + type);
         System.out.println("startTime is " + startTime);
         if(type.equals("0")) {
-            return TicketMasterAPI.search(32.8858947,-117.2394694, startTime,null);
+            return TicketMasterAPI.search(startTime,null);
         } else if(type.equals("1")) {
             return YelpCrawler.search(Integer.parseInt(startTime),0);
         } else {
-            return TicketMasterAPI.search(32.8858947,-117.2394694, startTime, null);
+            return MacysAPI.search("");
         }
     }
 

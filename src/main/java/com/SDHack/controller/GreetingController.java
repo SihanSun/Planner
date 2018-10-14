@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 public class GreetingController {
-
-    @RequestMapping("/")
-    public String index() {
-        MacysAPI macy = new MacysAPI();
-        macy.search(1539481582, 1539491300,"necklace");
-
-        return "";
-
-    }
+//
+//    @RequestMapping("/")
+//    public String index() {
+//        MacysAPI macy = new MacysAPI();
+//        macy.search(1539481582, 1539491300,"necklace");
+//
+//        return "";
+//
+//    }
 
 }
