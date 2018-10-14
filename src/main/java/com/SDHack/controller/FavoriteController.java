@@ -9,6 +9,7 @@ import com.SDHack.queryAPI.ticketmaster.TicketMasterAPI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 @RestController
@@ -43,29 +44,25 @@ public class FavoriteController {
 
     @CrossOrigin(origins = "http://localhost:8081")
     @RequestMapping(value = "/favorite", method = RequestMethod.GET)
-    CategoryEvents getIdByValue(@RequestParam String userId) throws Exception {
+    List<EventResult> getIdByValue(@RequestParam String userId,
+                                   @RequestParam String type) throws Exception {
 //        Favorite favoriteTest = new Favorite("testName");
 //        EventResult eventResultTest = new EventResult();
 //        eventResultTest.setName("testResult");
 //        favoriteTest.addFavorite(eventResultTest);
 //        favoriteRepository.save(favoriteTest);
+        int intType = Integer.parseInt(type);
         Optional<Favorite> favoriteOptional = favoriteRepository.findById(userId);
         if(favoriteOptional.isPresent()) {
             Favorite favorite = favoriteOptional.get();
-            CategoryEvents categoryEvents = new CategoryEvents();
+            List<EventResult> ans = new ArrayList<>();
             for(EventResult event : favorite.getFavorites()) {
                 int category = event.getCategory();
-                if(category == 0) {
-                    categoryEvents.getTicketMasterList().add(event);
-                }
-                if(category == 1) {
-                    categoryEvents.getYelpList().add(event);
-                }
-                if(category == 2) {
-                    categoryEvents.getMacyList().add(event);
+                if(category == intType) {
+                    ans.add(event);
                 }
             }
-            return categoryEvents;
+            return ans;
         } else {
             throw new Exception("user not found");
         }
