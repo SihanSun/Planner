@@ -24,7 +24,7 @@ public class TicketMasterAPI {
     private static final double lon = -117.2394694;
     private static final long DAY_IN_MS = 1000 * 60 * 60 * 24;
 
-    public static List<EventResult> search(String startTime, String keyword) {
+    public static List<EventResult> search(String keyword) {
         if(keyword == null) {
             keyword = DEFAULT_KEYWORD;
         }
