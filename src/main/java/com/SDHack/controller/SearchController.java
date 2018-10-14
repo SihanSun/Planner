@@ -24,11 +24,13 @@ public class SearchController {
     @RequestMapping(value = "/search")
     List<EventResult> getIdByValue(@RequestParam String type
             , @RequestParam String userId ) throws Exception {
+        type = type.toLowerCase();
         System.out.println("type is " + type);
 
         String startTime = "1539485667";
         //guess type
         type = type.replaceAll("%20", " ");
+        String typecopy = type;
         type = PortalNLP.classify(type);
 
         //find the result
@@ -39,7 +41,27 @@ public class SearchController {
         } else if(type.equals("1")) {
             ans = YelpCrawler.search(Integer.parseInt(startTime),0);
         } else {
-            ans = MacysAPI.search("");
+            //Put more types in the list
+            List<String> types = new ArrayList();
+            types.add("eyeliner");
+            types.add("glass");
+            types.add("shoes");
+            types.add("adidas");
+            types.add("nike");
+            types.add("necklace");
+            types.add("perfume");
+            types.add("handbag");
+            types.add("bedding");
+
+            String searchKeyword = "clothes";
+            for(int i = 0; i < types.size(); i ++) {
+                if (type.contains(types.get(i))) {
+                    searchKeyword = types.get(i);
+                }
+            }
+
+
+            ans = MacysAPI.search(searchKeyword);
         }
         for(int i = 0 ; i < ans.size() ; i++) {
             ans.get(i).setId(i);
