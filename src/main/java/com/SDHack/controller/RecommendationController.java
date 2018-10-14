@@ -76,7 +76,7 @@ public class RecommendationController {
         }
         if(countOf1 != 0) {
             List<EventResult> eventResults = YelpCrawler.search((int)timeStamp,0);
-            for(int i = 0 ; i < countOf0 ; i++) {
+            for(int i = 0 ; i < countOf1 ; i++) {
                 if(i >= eventResults.size()) {
                     break;
                 }
